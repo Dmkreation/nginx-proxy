@@ -1,4 +1,4 @@
-# nginx-proxy
+# nginx-proxy and ssl certificates
 
 Do following to setup proxy and ssl certificates auto manger
 ```shell
