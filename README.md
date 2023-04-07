@@ -1,5 +1,9 @@
 # nginx-proxy and ssl certificates
+Thanks to :
+- @jwilder for [jwilder/nginx-proxy](https://github.com/nginx-proxy/nginx-proxy)
+- @nginxproxy for [nginxproxy/acme-companion](https://github.com/nginx-proxy/acme-companion)
 
+## Usage
 Do following to setup proxy and ssl certificates auto manger
 ```shell
 git clone git@github.com:Dmkreation/nginx-proxy.git
