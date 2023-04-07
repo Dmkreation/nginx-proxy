@@ -4,9 +4,9 @@ services:
     image: jwilder/nginx-proxy
     container_name: proxy-nginx
     volumes:
-      - certs:/etc/nginx/certs
-      - vhost:/etc/nginx/vhost.d
-      - html:/usr/share/nginx/html
+      - nginx-proxy/certs:/etc/nginx/certs
+      - nginx-proxy/vhost:/etc/nginx/vhost.d
+      - nginx-proxy/html:/usr/share/nginx/html
       - /var/run/docker.sock:/tmp/docker.sock:ro
     ports:
       - 80:80
@@ -17,9 +17,10 @@ services:
     container_name: proxy-nginx-ssl
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - acme:/etc/acme.sh
+      - nginx-proxy/acme:/etc/acme.sh
     environment:
       - DEFAULT_EMAIL=eth3rnit3@gmail.com
+      - NGINX_PROXY_CONTAINER=proxy-nginx
 
 volumes:
   nginx-proxy:
