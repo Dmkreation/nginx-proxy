@@ -2,28 +2,36 @@ version: '3.4'
 services:
   nginx-proxy:
     image: jwilder/nginx-proxy
-    container_name: proxy-nginx
-    volumes:
-      - nginx-proxy/certs:/etc/nginx/certs
-      - nginx-proxy/vhost:/etc/nginx/vhost.d
-      - nginx-proxy/html:/usr/share/nginx/html
-      - /var/run/docker.sock:/tmp/docker.sock:ro
+    container_name: nginx-proxy
     ports:
       - 80:80
       - 443:443
-
-  proxy-nginx-ssl:
-    image: nginxproxy/acme-companion
-    container_name: proxy-nginx-ssl
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - nginx-proxy/acme:/etc/acme.sh
+      - conf:/etc/nginx/conf.d
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - certs:/etc/nginx/certs:ro
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  nginx-proxy-ssl:
+    image: nginxproxy/acme-companion
+    container_name: nginx-proxy-ssl
     environment:
       - DEFAULT_EMAIL=eth3rnit3@gmail.com
-      - NGINX_PROXY_CONTAINER=proxy-nginx
+      - NGINX_PROXY_CONTAINER=nginx-proxy
+    volumes_from:
+      - nginx-proxy
+    volumes:
+      - certs:/etc/nginx/certs:rw
+      - acme:/etc/acme.sh
+      - /var/run/docker.sock:/var/run/docker.sock:ro
 
 volumes:
-  nginx-proxy:
+  conf:
+  vhost:
+  html:
+  certs:
+  acme:
 
 networks:
   default:
