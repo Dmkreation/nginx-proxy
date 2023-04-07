@@ -7,7 +7,7 @@ cd nginx-proxy
 docker compose up -d
 ```
 
-Then, just add following config to all services do you want to expose
+Then, just add following config to all services do you want to expose and start them
 ```yaml
 version: '3.4'
 
